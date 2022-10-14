@@ -1,11 +1,11 @@
-import emojiAddNotification from "./modules/emojiAddNotification";
+import emojiChangeNotifications from "./modules/emojiChangeNotifications";
 
 const { App, LogLevel } = require("@slack/bolt");
 const dotenv = require("dotenv")
 const express = require('express')
 
-const modules = [
-    emojiAddNotification
+const emojineModules = [
+    emojiChangeNotifications
 ]
 
 function launchWebserver() {
@@ -27,7 +27,7 @@ async function launchEmojine() {
         appToken: process.env.EMOJINE_APP_TOKEN
     });
 
-    modules.forEach(module => module(emojineApp));
+    emojineModules.forEach(module => module(emojineApp));
 
     await emojineApp.start();
 
