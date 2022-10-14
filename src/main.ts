@@ -1,5 +1,12 @@
 const { App, LogLevel } = require("@slack/bolt");
 const dotenv = require("dotenv")
+const express = require('express')
+
+const webserver = express()
+webserver.get('/', (req, res) => {
+    res.send('Emojine. An emoji Slack bot. Come and contribute: https://github.com/pickware/emojine-slack-bot')
+})
+webserver.listen(process.env.PORT || 3000)
 
 // Load .env-file
 dotenv.config()
@@ -36,7 +43,7 @@ emojineApp.event("emoji_changed", async ({ event, client, context }) => {
 
 const main = async () => {
     // Start your app
-    await emojineApp.start(process.env.PORT || 3000);
+    await emojineApp.start();
 
     console.log('⚡️ Emojine is running!');
 }
