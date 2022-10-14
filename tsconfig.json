@@ -1,0 +1,12 @@
+{
+    "compilerOptions": {
+        "outDir": "./dist",
+        "allowJs": true,
+        "sourceMap": true,
+        "module": "commonjs",
+        "target": "es2019",
+        "lib": ["es2019", "es2020.string", "es2020.symbol.wellknown"],
+        "skipLibCheck": true
+    },
+    "include": ["./"]
+}
