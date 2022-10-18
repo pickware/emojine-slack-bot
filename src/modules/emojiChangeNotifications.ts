@@ -1,24 +1,31 @@
-import {App} from "@slack/bolt";
+import {App, EmojiChangedEvent} from "@slack/bolt";
 import {WebClient} from "@slack/web-api";
 
 export default (app: App) => {
     app.event("emoji_changed", async ({ event, client }) => {
         if (event.subtype == "add") {
-            await sendEmojiAddedMessage(client, event.name)
+            await sendEmojiAddedMessage(client, event)
         } else if (event.subtype == "remove") {
             await sendEmojiDeletedMessage(client, event.names)
         }
     });
 }
 
-async function sendEmojiAddedMessage(client: WebClient, emojiName: string) {
+async function sendEmojiAddedMessage(client: WebClient, event: EmojiChangedEvent) {
     const channelIds = await getEmojineChannelIds(client)
+
+    let text: string
+    if (event.value.startsWith("alias")) {
+        text = `:spiderman-pointing-left: :spiderman-pointing-right: New alias added :${event.name}:`
+    } else {
+        text = `:party_hat: New Emoji was added: :${event.name}:`
+    }
 
     return Promise.all(
         channelIds.map((channelId) => {
             return client.chat.postMessage({
                 channel: channelId,
-                text: `:party_hat: New Emoji was added: :${emojiName}:`
+                text,
             })
         })
     )
