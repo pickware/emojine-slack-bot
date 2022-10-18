@@ -16,7 +16,7 @@ async function sendEmojiAddedMessage(client: WebClient, event: EmojiChangedEvent
 
     let text: string
     if (event.value.startsWith("alias")) {
-        text = `:spiderman-pointing-left: :spiderman-pointing-right: New alias added :${event.name}:`
+        text = `:spiderman-pointing-left::spiderman-pointing-right: New alias was added :${event.name}:`
     } else {
         text = `:party_hat: New Emoji was added: :${event.name}:`
     }
